@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chess AI</title>
+    <link rel="icon" type="image/x-icon" href="/logochess.png">
+    <link rel="stylesheet" href="lib/chessboardjs/css/chessboard-0.3.0.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease;
+        }
+
+        #board {
+            margin: 20px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .info {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        select {
+            margin-left: 5px;
+            padding: 0px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .move-history {
+            border: 1px solid #ddd;
+            padding: 10px;
+            max-height: 200px;
+            overflow-y: scroll;
+            background-color: #fff;
+            transition: background-color 0.3s ease;
+        }
+
+        h1 {
+            color: #4285f4;
+            transition: color 0.3s ease;
+        }
+
+        p {
+            color: #777;
+            transition: color 0.3s ease;
+        }
+
+        a {
+            color: #1a73e8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        body.dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
+
+        body.dark-mode #board {
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+        }
+
+        body.dark-mode select,
+        body.dark-mode .move-history {
+            background-color: #444;
+        }
+
+        body.dark-mode h1 {
+            color: #bb86fc;
+        }
+
+        body.dark-mode a {
+            color: #bb86fc;
+        }
+
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background-color: #4285f4;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-size: 32px;
+        }
+
+        .dark-mode-toggle:hover {
+            background-color: #1a73e8;
+        }
+
+        /* New style for the notice */
+        .lag-notice {
+            position: relative;
+            text-align: center;
+            padding: 10px;
+            background-color: #ffc107;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Notice about potential lag -->
+    <div class="lag-notice" id="lagNotice">
+        Warning: Using this chess AI may lag your device.
+        <span class="close-btn" onclick="closeNotice()">X</span>
+    </div>
+
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()">&#9788;</button>
+
+    <center>
+        <h1>Chess Logic Bot V1</h1>
+        <p>Powered by <a href="https://kjzcorporation.com/">KJZ Corporation</a></p>
+        Search depth:
+        <select id="search-depth">
+            <option value="1">1 (Easy)</option>
+            <option value="2">2 (Medium)</option>
+            <option value="3" selected>3 (Casual)</option>
+            <option value="4">4 (Hard)</option>
+            <option value="5">5 (Extreme)</option>
+            <option value="5">6 (Expert)</option>
+        </select>
+    </center>
+
+    <div id="board" class="board"></div>
+
+    <div class="info">
+        <div id="move-history" class="move-history">
+        </div>
+    </div>
+
+    <script>
+        function closeNotice() {
+            document.getElementById('lagNotice').style.display = 'none';
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+    </script>
+
+    <script src="lib/jquery/jquery-3.2.1.min.js"></script>
+    <script src="lib/chessboardjs/js/chess.js"></script>
+    <script src="lib/chessboardjs/js/chessboard-0.3.0.js"></script>
+    <script src="script.js"></script>
+    <script>
+    // Immediately toggle dark mode on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        toggleDarkMode();
+    });
+</script>
+</body>
+</html>
